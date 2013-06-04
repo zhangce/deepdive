@@ -11,5 +11,6 @@ target_link_libraries(ele_test gtest gtest_main)
 add_test(test ele_test)
 
 ######MAIN ENTRY######
-add_executable(ele src/main.cpp)
-
+find_package (Threads)
+add_executable(ele src/io/driver_file.cpp src/main.cpp)
+target_link_libraries(ele ${CMAKE_THREAD_LIBS_INIT})
