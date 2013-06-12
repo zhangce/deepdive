@@ -14,35 +14,42 @@
     limitations under the License.
 */
 
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
 
-#ifndef INCLUDE_H
-#define INCLUDE_H
+#ifndef SCANNER_H
+#define SCANNER_H
 
-#include <stdlib.h>
+#include "io/driver_file.h"
+#include "frame.h"
+#include "common/include.h"
 
-#include <fstream>
+//template<class DRIVER>
+class Scanner
+{
+  
+private:
+  //DRIVER driver;
+  Driver_FILE driver;
+  
+  int framesize_in_byte;
+  
+  std::string conn_string;
+  
+  Frame frame;
+  
+  int current_frameid;
+  
+public:
+  
+  Scanner(int _framesize_in_byte, std::string _conn_string);
+  
+  virtual ~Scanner();
+  
+  void push_record(void * obj, int size);
 
-#include <iostream>
-#include <vector>
-#include <map>
-#include <assert.h>
-#include <string>
+  void finalize();
+  
+  virtual double scan();
+    
+};
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <malloc.h>
-#include <string.h>
-#include <unistd.h>
-
-#include <pthread.h>
-
-#include "common/types.h"
-
-
-
-#endif // INCLUDE_H
+#endif // SCANNER_H
