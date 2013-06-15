@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS "-O2 -g")
 add_subdirectory(lib/gtest-1.6.0)
 enable_testing(true)
 include_directories(src test lib/gtest-1.6.0/include lib/gtest-1.6.0)
-add_executable(ele_test src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp test/test.cpp)
+add_executable(ele_test src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp test/test.cpp)
 target_link_libraries(ele_test gtest gtest_main)
 add_test(test ele_test)
 

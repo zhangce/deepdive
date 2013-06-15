@@ -14,36 +14,19 @@
     limitations under the License.
 */
 
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
 
-#ifndef INCLUDE_H
-#define INCLUDE_H
+#include "fixlenkv.h"
 
-#include <stdlib.h>
-
-#include <fstream>
-
-#include <iostream>
-#include <vector>
-#include <map>
-#include <assert.h>
-#include <string>
-
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include <malloc.h>
-#include <string.h>
-#include <unistd.h>
-
-#include <pthread.h>
-
-#include "common/types.h"
+FixLenKV(const long & _buffer_size_in_byte,
+         const int  & _frame_size_in_byte,
+         const int  & _object_size_in_byte):
+    
 
 
+{
+    
+    
+    
+    
+}
 
-#endif // INCLUDE_H
