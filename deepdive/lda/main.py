@@ -81,7 +81,7 @@ class LDA:
             filename = DOCDIR + '/' + docid
             for l in open(filename):
                 for word in l.rstrip().split(' '):
-                    fo.write('%d\tC\t1\t50\t3\t%d\t0\t0\t0\t%d\t0\t0\t0\t%d\t0\t0\t0\t%d\n'
+                    fo.write('%d\tCQS\t1\t50\t3\t%d\t0\t0\t0\t%d\t0\t0\t0\t%d\t0\t0\t0\t%d\n'
                         % (vid, 0, docfactors[docid], wordfactors[word],
                         random.randint(1, 50)))
                     vid = vid + 1

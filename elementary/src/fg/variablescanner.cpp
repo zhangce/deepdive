@@ -20,7 +20,7 @@
   /**
    * Format of variables file:
    * 
-   *    VID(long) #TYPE(char, C, R, M) LOWERBOUND(double) UPPERBOUND(double) NFACTOR(long) [FID(long), GROUP(int), POS(int), AUX(int)...] [INITVALUES(double)...]
+   *    VID(long) #DTYPE(char, C, R, M) #VTYPE(char E, Q) #STYPE(char S, G) LOWERBOUND(double) UPPERBOUND(double) NFACTOR(long) [FID(long), GROUP(int), POS(int), AUX(int)...] [INITVALUES(double)...]
    * 
    */
 template<class DRIVER>
@@ -28,7 +28,7 @@ long VariableScanner<DRIVER>::load(std::string _filename_variables)
 {
   std::ifstream fin(_filename_variables.c_str());
   long vid, nfactor, fid;
-  char type;
+  char dtype, vtype, stype;
   double lower, upper;
   int group, pos, aux;
   double value;
@@ -37,14 +37,16 @@ long VariableScanner<DRIVER>::load(std::string _filename_variables)
   
   long nassignment;
   
-  while(fin >> vid >> type >> lower >> upper >> nfactor){
+  while(fin >> vid >> dtype >> vtype >> stype >> lower >> upper >> nfactor){
     
-    variable_size_in_byte = Variable::size(type, lower, upper, nfactor);
+    variable_size_in_byte = Variable::size(dtype, lower, upper, nfactor);
     
     Variable * pvar = reinterpret_cast<Variable*>(this->push_record(variable_size_in_byte));
     
     pvar->vid = vid;
-    pvar->type = type;
+    pvar->dtype = dtype;
+    pvar->vtype = vtype;
+    pvar->stype = stype;
     pvar->lower = lower;
     pvar->upper = upper;
     pvar->nfactor = nfactor;
@@ -53,9 +55,9 @@ long VariableScanner<DRIVER>::load(std::string _filename_variables)
       fin >> (*(pvar->get_i_fid(i))) >> (*(pvar->get_i_f_group(i))) >> (*(pvar->get_i_f_pos(i))) >> (*(pvar->get_i_f_aux(i)));
     }
    
-    if(type == 'C' || type == 'R'){
+    if(dtype == 'C' || dtype == 'R'){
       fin >> (*(pvar->get_i_value(0)));
-    }else if(type == 'M'){
+    }else if(dtype == 'M'){
       assert(false);
     }else{
       assert(false); 

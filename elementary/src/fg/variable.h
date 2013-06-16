@@ -25,7 +25,11 @@ class Variable{
 public:
   
   long vid;
-  char type;
+  
+  char dtype;
+  char vtype;
+  char stype;
+  
   double lower;
   double upper;
   long nfactor;
