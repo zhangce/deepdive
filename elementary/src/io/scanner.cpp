@@ -87,7 +87,7 @@ char * Scanner<DRIVER>::push_record(int size)
 }
 
 template<class DRIVER>
-double Scanner<DRIVER>::scan(double (*func)(char*, void*), void * ppara)
+double Scanner<DRIVER>::scan(double (*func)(char* wr_copy, char * rd_copy, void*, double*), void * ppara)
 {
   double sum = 0;
   
@@ -96,16 +96,20 @@ double Scanner<DRIVER>::scan(double (*func)(char*, void*), void * ppara)
   std::cout.flush();
   
   Frame frames[2] = {Frame(this->framesize_in_byte), Frame(this->framesize_in_byte)};
+  Frame rd_only_frame(this->framesize_in_byte);
   
   int index_scan = 0;
   int index_load = 1;
+  
+  double objectpool[1000];
   
   Timer totaltime;
   for(int frameid=0;frameid <= current_frameid;frameid++){
     Timer t;
     driver.get_frame(frameid, frames[index_scan]);
+    driver.get_frame(frameid, rd_only_frame);
     for(int recid=0; recid<frames[index_scan].get_n_records(); recid++){
-      sum += func(frames[index_scan].get_i_record_content(recid), ppara);
+      sum += func(frames[index_scan].get_i_record_content(recid), rd_only_frame.get_i_record_content(recid), ppara, objectpool);
     }
     driver.set_frame(frameid, frames[index_scan]);
     double perepoch = t.elapsed();
@@ -115,7 +119,7 @@ double Scanner<DRIVER>::scan(double (*func)(char*, void*), void * ppara)
     }
     
   }
-  std::cout << "[TIME=" << totaltime.elapsed() << "]" << std::endl;
+  std::cout << "[TIME=" << totaltime.elapsed() << "]" << "...SIGSUM=[" << sum << "]" << std::endl;
   
   return sum;
 }

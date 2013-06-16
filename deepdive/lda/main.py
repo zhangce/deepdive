@@ -50,18 +50,18 @@ class LDA:
 
         fid = 0
         #first print the first factor
-        fo.write(('%d\t%d\t0\t0\n' % (0, 50)))
+        fo.write(('%d\t%d\t0\t-1\n' % (0, 50)))
 
         fid = 1
         #then print word factors
         for word in words:
-            fo.write(('%d\t%d\t0\t1\n' % (fid, 50)))
+            fo.write(('%d\t%d\t0\t2\n' % (fid, 50)))
             wordfactors[word] = fid
             fid = fid + 1
 
         #then print doc factors
         for doc in docs:
-            fo.write(('%d\t%d\t0\t2\n' % (fid, 50)))
+            fo.write(('%d\t%d\t0\t3\n' % (fid, 50)))
             docfactors[doc] = fid
             fid = fid + 1
 
@@ -81,9 +81,9 @@ class LDA:
             filename = DOCDIR + '/' + docid
             for l in open(filename):
                 for word in l.rstrip().split(' '):
-                    fo.write('%d\tCQS\t1\t50\t3\t%d\t0\t0\t0\t%d\t0\t0\t0\t%d\t0\t0\t0\t%d\n'
+                    fo.write('%d\tCQS\t0\t49\t3\t%d\t0\t0\t0\t%d\t0\t0\t0\t%d\t0\t0\t0\t%d\n'
                         % (vid, 0, docfactors[docid], wordfactors[word],
-                        random.randint(1, 50)))
+                        random.randint(0, 49)))
                     vid = vid + 1
         fo.close()
         print(("|LDA|    # VARIABLES    = %d" % (vid)))
@@ -93,8 +93,8 @@ class LDA:
         print(("|LDA| CREATING MODELS TO %s ..." % modelfile))
         fo = open(modelfile, 'w')
 
-        fo.write('0\t0.00001\n')
-        fo.write('1\t0.00002\n')
-        fo.write('2\t0.00003')
+        fo.write('1\t1\n')
+        fo.write('2\t0.001\n')
+        fo.write('3\t0.001')
         fo.close()
 

@@ -3,7 +3,7 @@
 #include "fg/variable.h"
 #include "fg/variablescanner.h"
 
-double print_variable(char * buf, void * ppara){
+double print_variable(char * buf, char * dummy, void * ppara){
   Variable * pvar = reinterpret_cast<Variable*>(buf);
   bool a = pvar->vid >= 0 && pvar->vid <= 429451;
   EXPECT_EQ(a, true);
@@ -15,7 +15,7 @@ double print_variable(char * buf, void * ppara){
   EXPECT_EQ(a, true);
 }
 
-double update_variable(char * buf, void * ppara){
+double update_variable(char * buf, char * dummy, void * ppara){
   Variable * pvar = reinterpret_cast<Variable*>(buf);
   for(int i=0;i<3;i++){
     *pvar->get_i_fid(i) = (long) i*4+0;
@@ -27,7 +27,7 @@ double update_variable(char * buf, void * ppara){
   *pvar->get_i_value(0) = 12.5;
 }
 
-double print_variable2(char * buf, void * ppara){
+double print_variable2(char * buf, char * dummy, void * ppara){
   Variable * pvar = reinterpret_cast<Variable*>(buf);
   bool a = pvar->vid >= 0 && pvar->vid <= 429451;
   EXPECT_EQ(a, true);

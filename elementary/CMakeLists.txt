@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 project(elementary)
 
 #set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_CXX_FLAGS "-O2 ")
+set(CMAKE_CXX_FLAGS "-O2")
 
 ######GTEST######
 add_subdirectory(lib/gtest-1.6.0)

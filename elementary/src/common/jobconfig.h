@@ -37,6 +37,8 @@ public:
   
   long buffer_size_in_byte;
   
+  int nepoch;
+  
   JobConfig(){}
   
   JobConfig( const JobConfig& other )
@@ -47,6 +49,7 @@ public:
     this->workdir = "" + other.workdir;
     this->frame_size_in_byte = other.frame_size_in_byte;
     this->buffer_size_in_byte = other.buffer_size_in_byte;
+    this->nepoch = other.nepoch;
   }
   
   

@@ -26,21 +26,23 @@
 class FactorFactory
 {
   
-public:
+public:  
   static int get_factor_size(int ffid, long sizeaux){
 
     // LDA FACTOR
-    if(ffid == 0) return sizeof(int) + Factor_LDA::factor_size(sizeaux);
+    if(ffid == 0) return Factor_LDA::factor_size(sizeaux);
       
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
   
   static void load_factor(int ffid, char * state, long sizeaux, int aux){
    
+    assert(aux != 0 && "Parameter starts from 1~\\infty. Or -1~-\\infty where the negative sign encodes other information.");
+    
     (*reinterpret_cast<int*>(&state[0])) = ffid;
     
     // LDA FACTOR
-    if(ffid == 0) return Factor_LDA::load_factor(&state[sizeof(int)], sizeaux, aux);
+    if(ffid == 0) return Factor_LDA::load_factor(state, sizeaux, aux);
 	
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
@@ -50,7 +52,25 @@ public:
     int ffid = (*reinterpret_cast<int*>(&state[0]));
     
     // LDA FACTOR
-    if(ffid == 0) return Factor_LDA::init_factor(&state[sizeof(int)], i_factor, var);
+    if(ffid == 0) return Factor_LDA::init_factor(state, i_factor, var);
+	
+    assert(false && "FactorFactory: FactorID not in the catalog");
+  }
+  
+  static double potential_factor(char * state, long i_factor, Variable * propose, Variable * original){
+    int ffid = (*reinterpret_cast<int*>(&state[0]));
+    
+    // LDA FACTOR
+    if(ffid == 0) return Factor_LDA::potential_factor(state, i_factor, propose, original);
+	
+    assert(false && "FactorFactory: FactorID not in the catalog");
+  }
+  
+  static void update_factor(char * state, long i_factor, Variable * propose, Variable * original){
+    int ffid = (*reinterpret_cast<int*>(&state[0]));
+    
+    // LDA FACTOR
+    if(ffid == 0) return Factor_LDA::update_factor(state, i_factor, propose, original);
 	
     assert(false && "FactorFactory: FactorID not in the catalog");
   }

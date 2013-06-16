@@ -52,7 +52,7 @@ public:
 
   void finalize();
   
-  virtual double scan(double (*func)(char*, void*), void * ppara);
+  virtual double scan(double (*func)(char* wr_copy, char* rd_copy, void*, double* p_double1000buffer), void * ppara);
 
   //virtual double scan_prefetch(double (*func)(char*));
   

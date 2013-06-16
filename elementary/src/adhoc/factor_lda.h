@@ -18,12 +18,14 @@
 #ifndef FACTOR_LDA_H
 #define FACTOR_LDA_H
 
+#include <fg/modelaccessor.h>
 #include <fg/variable.h>
 
 class LDA_Factor_State{
 public:
+  int ffid;
   int aux;
-  long counts[1];
+  long counts[];
 };
 
 class Factor_LDA
@@ -31,7 +33,7 @@ class Factor_LDA
 public:
   
   static int factor_size(long sizeaux){
-    return sizeof(int) + sizeof(long)*50;
+    return sizeof(int) + sizeof(int) + sizeof(long)*sizeaux;
   }
   
   static void load_factor(char * state, long sizeaux, int aux){
@@ -44,9 +46,26 @@ public:
   
   static void init_factor(char * state, long i_factor, Variable * var){
     LDA_Factor_State * pstate = reinterpret_cast<LDA_Factor_State*>(state);
+    assert(int(*var->get_i_value(0)) >= 0);
     pstate->counts[int(*var->get_i_value(0))] ++;
+    
   }
-
+  
+  static double potential_factor(char * state, long i_factor, Variable * propose, Variable * original){
+     LDA_Factor_State * pstate = reinterpret_cast<LDA_Factor_State*>(state);
+     if(pstate->aux >= 0){
+       return ModelAccessor::model[pstate->aux] * pstate->counts[int(*propose->get_i_value(0))];
+     }else{
+       return 1.0/ModelAccessor::model[-pstate->aux] / pstate->counts[int(*propose->get_i_value(0))];
+     }
+  }
+  
+  static void update_factor(char * state, long i_factor, Variable * propose, Variable * original){
+     LDA_Factor_State * pstate = reinterpret_cast<LDA_Factor_State*>(state);
+     
+     pstate->counts[int(*propose->get_i_value(0))] ++;    
+     pstate->counts[int(*original->get_i_value(0))] --;
+  }
   
 };
 
