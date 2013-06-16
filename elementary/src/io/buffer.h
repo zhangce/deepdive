@@ -20,7 +20,7 @@
 
 #include "io/driver_file.h"
 
-class BufferPagerHeader{
+class BufferPageHeader{
     
 public:
     
@@ -95,14 +95,20 @@ public:
     const int framesize_in_byte;
     
     PageBuffer(const int & _framesize_in_byte,
-               const long & _buffer_size_in_byte);
+               const long & _buffer_size_in_byte,
+	       std::string _conn_string);
     
+    virtual ~PageBuffer();
     
     void add_page(const int & page_id);
     
-    BufferPagerHeader * get_bufferpage_and_lock(const int & page_id);
+    BufferPageHeader * get_bufferpage_and_lock(const int & page_id);
     
     void release_lock(const int & page_id);
+    
+    bool contain_page(const int & page_id){
+      return page_id < page_table.size();
+    }
     
     size_t get_nio(){
         return n_rio + n_wio;

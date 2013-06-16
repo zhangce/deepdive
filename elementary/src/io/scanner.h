@@ -22,13 +22,13 @@
 #include "frame.h"
 #include "common/include.h"
 
-//template<class DRIVER>
+template<class DRIVER>
 class Scanner
 {
   
-private:
-  //DRIVER driver;
-  Driver_FILE driver;
+protected:
+  DRIVER driver;
+  //Driver_FILE driver;
   
   int framesize_in_byte;
   
@@ -38,18 +38,24 @@ private:
   
   int current_frameid;
   
+  bool finalized;
+  
 public:
   
   Scanner(int _framesize_in_byte, std::string _conn_string);
   
   virtual ~Scanner();
   
+  char * push_record(int size);
+  
   void push_record(void * obj, int size);
 
   void finalize();
   
-  virtual double scan();
-    
+  virtual double scan(double (*func)(char*, void*), void * ppara);
+
+  //virtual double scan_prefetch(double (*func)(char*));
+  
 };
 
 #endif // SCANNER_H

@@ -43,7 +43,7 @@
 #include <pthread.h>
 
 #include "common/types.h"
-
+#include "common/timer.h"
 
 
 #endif // INCLUDE_H

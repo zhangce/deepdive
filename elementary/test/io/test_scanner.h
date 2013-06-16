@@ -6,9 +6,9 @@
 
 TEST (SCANNER_TEST, SCAN_DOUBLE){
   
-  Scanner scanner(4096*1024, "/tmp/tmpscanner");
+  Scanner<Driver_FILE> scanner(4096*1024, "/tmp/tmpscanner");
   double sum = 0;
-  for(int i=0;i<10000000;i++){
+  for(int i=0;i<1000000;i++){
     double value = 3.14*i;
     sum += value;
     scanner.push_record(&value, sizeof(double));
