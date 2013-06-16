@@ -21,6 +21,7 @@
 #include <common/include.h>
 #include <fg/variablescanner.h>
 #include <fg/factoraccessor.h>
+#include <fg/modelaccessor.h>
 
 template<class DRIVER, class PAGER>
 class FactorGraph
@@ -35,13 +36,15 @@ private:
   
   std::string filename_factors;
   
+  std::string filename_models;
+  
 public:
   
   void init();
   
   void sample();
   
-  FactorGraph(std::string _filename_variables, std::string _filename_factors, const long & _buffer_size_in_byte, const int & _framesize_in_byte);
+  FactorGraph(std::string _filename_models, std::string _filename_variables, std::string _filename_factors, const long & _buffer_size_in_byte, const int & _framesize_in_byte);
   
   virtual ~FactorGraph();
 };

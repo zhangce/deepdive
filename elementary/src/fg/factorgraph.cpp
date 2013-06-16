@@ -48,9 +48,10 @@ void FactorGraph<DRIVER, PAGER>::sample()
 }
 
 template<class DRIVER, class PAGER>
-FactorGraph<DRIVER, PAGER>::FactorGraph(std::string _filename_variables, std::string _filename_factors, const long & _buffer_size_in_byte, const int & _framesize_in_byte):
+FactorGraph<DRIVER, PAGER>::FactorGraph(std::string _filename_models, std::string _filename_variables, std::string _filename_factors, const long & _buffer_size_in_byte, const int & _framesize_in_byte):
   filename_variables(_filename_variables),
   filename_factors(_filename_factors),
+  filename_models(_filename_models),
   variables(VariableScanner<DRIVER>(_framesize_in_byte, "/tmp/vars")),
   factors(FactorAccessor<DRIVER, PAGER>(_buffer_size_in_byte, _framesize_in_byte, "/tmp/facs"))
 {
@@ -59,6 +60,9 @@ FactorGraph<DRIVER, PAGER>::FactorGraph(std::string _filename_variables, std::st
   
   std::cout << "  | Loading factors..." << std::endl;
   std::cout << "    # fac = " << this->factors.load(filename_factors) << std::endl;
+  
+  std::cout << "  | Loading models..." << std::endl;
+  std::cout << "    # mod = " << ModelAccessor::load(filename_models) << std::endl;
 }
 
 template<class DRIVER, class PAGER>

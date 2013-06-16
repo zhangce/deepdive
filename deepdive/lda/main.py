@@ -65,7 +65,7 @@ class LDA:
             docfactors[doc] = fid
             fid = fid + 1
 
-        print(("|LDA|    # FACTORS    = %d" % (fid + 1)))
+        print(("|LDA|    # FACTORS      = %d" % (fid + 1)))
 
         fo.close()
 
@@ -85,6 +85,16 @@ class LDA:
                         % (vid, 0, docfactors[docid], wordfactors[word],
                         random.randint(1, 50)))
                     vid = vid + 1
+        fo.close()
+        print(("|LDA|    # VARIABLES    = %d" % (vid)))
 
+        ##### generate models
+        modelfile = WORKDIR + "/" + "models.tsv"
+        print(("|LDA| CREATING MODELS TO %s ..." % modelfile))
+        fo = open(modelfile, 'w')
+
+        fo.write('0\t0.00001\n')
+        fo.write('1\t0.00002\n')
+        fo.write('2\t0.00003')
         fo.close()
 
