@@ -3,6 +3,10 @@
 #include "io/driver_file.h"
 #include "io/scanner.h"
 
+double adddouble(char * buf, void * ppara){
+  return *reinterpret_cast<double*>(buf);
+}
+
 
 TEST (SCANNER_TEST, SCAN_DOUBLE){
   
@@ -13,6 +17,6 @@ TEST (SCANNER_TEST, SCAN_DOUBLE){
     sum += value;
     scanner.push_record(&value, sizeof(double));
   }
-  double rs = scanner.scan();
+  double rs = scanner.scan(&adddouble, NULL);
   EXPECT_EQ(rs, sum);
 }
