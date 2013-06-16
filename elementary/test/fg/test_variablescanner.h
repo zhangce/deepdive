@@ -52,9 +52,9 @@ TEST (VARIABLESCANNER_TEST, LOAD){
   long nvariable = vs.load("/tmp/deepdive/variables.tsv");
   EXPECT_EQ(nvariable, 429451);
   
-  vs.scan(&print_variable);
-  vs.scan(&update_variable);
-  vs.scan(&print_variable2);
+  vs.scan(&print_variable, NULL);
+  vs.scan(&update_variable, NULL);
+  vs.scan(&print_variable2, NULL);
     
   //vs.scan_prefetch(&print_variable);
   //vs.scan_prefetch(&update_variable);
