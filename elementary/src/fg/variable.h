@@ -34,6 +34,9 @@ public:
   double upper;
   long nfactor;
   
+  int cvalue;
+  double rvalue;
+  
   char content[1];
   
   long * get_i_fid(const long & i);

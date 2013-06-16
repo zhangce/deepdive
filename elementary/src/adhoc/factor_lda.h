@@ -46,25 +46,31 @@ public:
   
   static void init_factor(char * state, long i_factor, Variable * var){
     LDA_Factor_State * pstate = reinterpret_cast<LDA_Factor_State*>(state);
-    assert(int(*var->get_i_value(0)) >= 0);
-    pstate->counts[int(*var->get_i_value(0))] ++;
-    
+    //assert(int(*var->get_i_value(0)) >= 0);
+    //pstate->counts[int(*var->get_i_value(0))] ++;
+    pstate->counts[var->cvalue] ++;
   }
   
   static double potential_factor(char * state, long i_factor, Variable * propose, Variable * original){
      LDA_Factor_State * pstate = reinterpret_cast<LDA_Factor_State*>(state);
-     if(pstate->aux >= 0){
-       return ModelAccessor::model[pstate->aux] * pstate->counts[int(*propose->get_i_value(0))];
+     if(pstate->aux > 0){
+       return ModelAccessor::model[pstate->aux] * pstate->counts[propose->cvalue];
+       //return ModelAccessor::model[pstate->aux] * pstate->counts[int(*propose->get_i_value(0))];
      }else{
-       return 1.0/ModelAccessor::model[-pstate->aux] / pstate->counts[int(*propose->get_i_value(0))];
-     }
+       return 1.0/ModelAccessor::model[-pstate->aux]/pstate->counts[propose->cvalue];
+       //return 1.0/ModelAccessor::model[-pstate->aux]/pstate->counts[int(*propose->get_i_value(0))];
+    }
   }
   
   static void update_factor(char * state, long i_factor, Variable * propose, Variable * original){
      LDA_Factor_State * pstate = reinterpret_cast<LDA_Factor_State*>(state);
      
-     pstate->counts[int(*propose->get_i_value(0))] ++;    
-     pstate->counts[int(*original->get_i_value(0))] --;
+     //pstate->counts[int(*propose->get_i_value(0))] ++;    
+     //pstate->counts[int(*original->get_i_value(0))] --;
+  
+     pstate->counts[propose->cvalue] ++;    
+     pstate->counts[original->cvalue] --;
+     
   }
   
 };

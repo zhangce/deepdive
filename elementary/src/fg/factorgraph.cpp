@@ -16,6 +16,7 @@
 
 
 #include "factorgraph.h"
+#include "sampler/discretegibbssampler.h"
 
 template<class DRIVER, class PAGER>
 double process_variable_init(char * wr_copy, char * rd_copy, void * ppara, double* p_double100buffer){
@@ -42,68 +43,27 @@ double process_variable_sample(char * wr_copy, char * rd_copy, void * ppara, dou
   Variable * pvar_ori = reinterpret_cast<Variable*>(rd_copy);
   
   long fid;
+  int changed;
   
   if(pvar->dtype == 'C' && (pvar->upper <= 999 && pvar->lower >= 0)){
+    // for discrete variables with small range, just enumerate all possibilities
+    changed = DiscreteGibbsSampler<DRIVER, PAGER>::sample(factors, pvar, pvar_ori, p_double1000buffer);
+  }else if(pvar->dtype == 'C' || pvar->dtype == 'R'){
+    // for discrete variables with large range, or continuous variables, the 
+    // last thing we could do is MH with uniform proposal
+  }else if(pvar->dtype == 'M'){
+    // for now, we do not support matrix
+      assert(false);
+  }
   
-    for(int newvalue=pvar->lower;newvalue<=pvar->upper;newvalue++){
-      p_double1000buffer[newvalue] = 1.0;
-    }
-    
-    for(long i_factor=0;i_factor<pvar->nfactor;i_factor++){
-      fid = *pvar->get_i_fid(i_factor);   
-      char * fstate = factors->get_record(fid);
-      // propose
-      for(int newvalue=pvar->lower;newvalue<=pvar->upper;newvalue++){
-	
-	*pvar->get_i_value(0) = newvalue;
-	
-	double potential = FactorFactory::potential_factor(fstate, i_factor, pvar, pvar_ori);
-	
-	p_double1000buffer[newvalue] *= potential;
-      }
-      
-      factors->release_record(fid);
-    }
-    
-    double sum = 0;
-    for(int newvalue=pvar->lower;newvalue<=pvar->upper;newvalue++){
-      sum += p_double1000buffer[newvalue];
-    }
-    
-    double r = drand48();
-    double accum = 0;
-    double ratio = 0;
-    int topick = -1;
-    for(int newvalue=pvar->lower;newvalue<=pvar->upper;newvalue++){
-      accum += p_double1000buffer[newvalue];
-      ratio = accum / sum;
-      if(r <= ratio){
-	topick = newvalue;
-	break;
-      }
-    }
-    assert(topick != -1);
-    
-    *pvar->get_i_value(0) = topick;
-    
-    // update
-    for(long i_factor=0;i_factor<pvar->nfactor;i_factor++){
-      fid = *pvar->get_i_fid(i_factor);      
-      FactorFactory::update_factor(factors->get_record(fid), i_factor, pvar, pvar_ori);
-      factors->release_record(fid);
-    }
-    
-    if(topick != *pvar_ori->get_i_value(0)){
-      return 1;
-    }else{
-      return 0;
-    }
-    
-    
-  }else{
-    assert(false);
+  // update
+  for(long i_factor=0;i_factor<pvar->nfactor;i_factor++){
+    fid = *pvar->get_i_fid(i_factor);      
+    FactorFactory::update_factor(factors->get_record(fid), i_factor, pvar, pvar_ori);
+    factors->release_record(fid);
   }
     
+  return changed;
 }
 
 

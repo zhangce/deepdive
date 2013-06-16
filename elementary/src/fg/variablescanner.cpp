@@ -50,13 +50,16 @@ long VariableScanner<DRIVER>::load(std::string _filename_variables)
     pvar->lower = lower;
     pvar->upper = upper;
     pvar->nfactor = nfactor;
-
+    
     for(long i=0;i<nfactor;i++){
       fin >> (*(pvar->get_i_fid(i))) >> (*(pvar->get_i_f_group(i))) >> (*(pvar->get_i_f_pos(i))) >> (*(pvar->get_i_f_aux(i)));
     }
    
-    if(dtype == 'C' || dtype == 'R'){
-      fin >> (*(pvar->get_i_value(0)));
+    if(dtype == 'C'){
+      fin >> pvar->cvalue;
+    }else if(dtype == 'R'){
+      //fin >> (*(pvar->get_i_value(0)));
+      fin >> pvar->rvalue;
     }else if(dtype == 'M'){
       assert(false);
     }else{

@@ -17,7 +17,6 @@
 
 #include "factoraccessor.h"
 
-
 template<class DRIVER, class PAGER>
 long FactorAccessor<DRIVER, PAGER>::load(std::string _filename_factors)
 {

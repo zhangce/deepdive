@@ -120,7 +120,6 @@ double Scanner<DRIVER>::scan(double (*func)(char* wr_copy, char * rd_copy, void*
     
   }
   std::cout << "[TIME=" << totaltime.elapsed() << "]" << "...SIGSUM=[" << sum << "]" << std::endl;
-  
   return sum;
 }
 

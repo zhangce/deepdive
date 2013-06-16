@@ -23,10 +23,12 @@
 
 #include <adhoc/factor_lda.h>
 
+ 
 class FactorFactory
 {
   
 public:  
+  
   static int get_factor_size(int ffid, long sizeaux){
 
     // LDA FACTOR
@@ -53,7 +55,7 @@ public:
     
     // LDA FACTOR
     if(ffid == 0) return Factor_LDA::init_factor(state, i_factor, var);
-	
+    
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
   
@@ -75,7 +77,6 @@ public:
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
   
-
 };
 
 #endif // FACTORFACTORY_H
