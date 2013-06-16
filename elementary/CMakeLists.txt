@@ -12,8 +12,10 @@ include_directories(src test lib/gtest-1.6.0/include lib/gtest-1.6.0)
 add_executable(ele_test src/common/timer.cpp src/fg/variable.cpp src/fg/factoraccessor.cpp src/io/varlenkv.cpp src/io/fixlenkv.cpp src/fg/variablescanner.cpp src/fg/factorgraph.cpp src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp test/test.cpp)
 target_link_libraries(ele_test gtest gtest_main)
 add_test(test ele_test)
+target_link_libraries(ele_test -lrt)
 
 ######MAIN ENTRY######
 find_package (Threads)
 add_executable(ele src/main.cpp)
 target_link_libraries(ele ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(ele -lrt)
