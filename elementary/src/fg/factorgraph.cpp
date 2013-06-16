@@ -35,9 +35,7 @@ double process_variable_init(char * buf, void * ppara){
 template<class DRIVER, class PAGER>
 void FactorGraph<DRIVER, PAGER>::init()
 {
-  Timer t;
   this->variables.scan(&process_variable_init<DRIVER, PAGER>, &this->factors);
-  std::cout << t.elapsed() << std::endl;
 }
 
 
@@ -48,21 +46,19 @@ void FactorGraph<DRIVER, PAGER>::sample()
 }
 
 template<class DRIVER, class PAGER>
-FactorGraph<DRIVER, PAGER>::FactorGraph(std::string _filename_models, std::string _filename_variables, std::string _filename_factors, const long & _buffer_size_in_byte, const int & _framesize_in_byte):
-  filename_variables(_filename_variables),
-  filename_factors(_filename_factors),
-  filename_models(_filename_models),
-  variables(VariableScanner<DRIVER>(_framesize_in_byte, "/tmp/vars")),
-  factors(FactorAccessor<DRIVER, PAGER>(_buffer_size_in_byte, _framesize_in_byte, "/tmp/facs"))
-{
+FactorGraph<DRIVER, PAGER>::FactorGraph(JobConfig _jobconfig):
+  jobconfig(_jobconfig),
+  variables(VariableScanner<DRIVER>(_jobconfig.frame_size_in_byte, _jobconfig.workdir + "/vars")),
+  factors(FactorAccessor<DRIVER, PAGER>(_jobconfig.buffer_size_in_byte, _jobconfig.frame_size_in_byte, _jobconfig.workdir + "/facs"))
+{  
   std::cout << "  | Loading variables..." << std::endl;
-  std::cout << "    # var = " << this->variables.load(filename_variables) << std::endl;
+  std::cout << "    # var = " << this->variables.load(jobconfig.filename_variables) << std::endl;
   
   std::cout << "  | Loading factors..." << std::endl;
-  std::cout << "    # fac = " << this->factors.load(filename_factors) << std::endl;
+  std::cout << "    # fac = " << this->factors.load(jobconfig.filename_factors) << std::endl;
   
   std::cout << "  | Loading models..." << std::endl;
-  std::cout << "    # mod = " << ModelAccessor::load(filename_models) << std::endl;
+  std::cout << "    # mod = " << ModelAccessor::load(jobconfig.filename_models) << std::endl;
 }
 
 template<class DRIVER, class PAGER>

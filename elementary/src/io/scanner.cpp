@@ -92,19 +92,30 @@ double Scanner<DRIVER>::scan(double (*func)(char*, void*), void * ppara)
   double sum = 0;
   
   this->finalize();
-  std::cout << "  | Scaning " << (1+this->current_frameid) << " pages..." << std::endl;
+  std::cout << "  | Scaning " << (1+this->current_frameid) << " pages..." ;
+  std::cout.flush();
+  
   Frame frames[2] = {Frame(this->framesize_in_byte), Frame(this->framesize_in_byte)};
-
+  
   int index_scan = 0;
   int index_load = 1;
   
+  Timer totaltime;
   for(int frameid=0;frameid <= current_frameid;frameid++){
+    Timer t;
     driver.get_frame(frameid, frames[index_scan]);
     for(int recid=0; recid<frames[index_scan].get_n_records(); recid++){
       sum += func(frames[index_scan].get_i_record_content(recid), ppara);
     }
     driver.set_frame(frameid, frames[index_scan]);
+    double perepoch = t.elapsed();
+    if(frameid == 0){
+      std::cout << "[ETA=" << t.elapsed() * current_frameid << "]...";
+      std::cout.flush();
+    }
+    
   }
+  std::cout << "[TIME=" << totaltime.elapsed() << "]" << std::endl;
   
   return sum;
 }

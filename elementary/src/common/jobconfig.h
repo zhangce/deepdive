@@ -15,36 +15,41 @@
 */
 
 
-#ifndef FACTORGRAPH_H
-#define FACTORGRAPH_H
+#ifndef JOBCONFIG_H
+#define JOBCONFIG_H
 
 #include <common/include.h>
-#include <fg/variablescanner.h>
-#include <fg/factoraccessor.h>
-#include <fg/modelaccessor.h>
 
-#include <common/jobconfig.h>
-
-template<class DRIVER, class PAGER>
-class FactorGraph
+class JobConfig
 {
-
-private:
-  
-  VariableScanner<DRIVER> variables;
-  FactorAccessor<DRIVER, PAGER> factors;
-  
-  JobConfig jobconfig;
   
 public:
   
-  void init();
+  std::string filename_variables;
   
-  void sample();
+  std::string filename_factors;
   
-  FactorGraph(JobConfig _jobconfig);
+  std::string filename_models;
   
-  virtual ~FactorGraph();
+  std::string workdir;
+  
+  int frame_size_in_byte;
+  
+  long buffer_size_in_byte;
+  
+  JobConfig(){}
+  
+  JobConfig( const JobConfig& other )
+  {
+    this->filename_variables = "" + other.filename_variables;
+    this->filename_factors = "" + other.filename_factors;
+    this->filename_models = "" + other.filename_models;
+    this->workdir = "" + other.workdir;
+    this->frame_size_in_byte = other.frame_size_in_byte;
+    this->buffer_size_in_byte = other.buffer_size_in_byte;
+  }
+  
+  
 };
 
-#endif // FACTORGRAPH_H
+#endif // JOBCONFIG_H
