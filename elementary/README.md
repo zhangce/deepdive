@@ -46,7 +46,7 @@ This should build two binaries:
 
 The simplest way to test your installation is to run unit tests by typing in
 
-    $ make test            # (or ./ele_test)
+    $ ./ele_test            # (or make test)
 
 The whole test might take about 10 minutes to finish. All test case should be passed. We expect 
 outputs like
