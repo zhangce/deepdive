@@ -20,13 +20,13 @@ TEST (VARLENKV_TEST, MANIPULATE_DOUBLE_ARRAY){
   }
   for(long i=0;i<10000000;i++){
     for(int j=0;j<4;j++){
-      EXPECT_EQ((reinterpret_cast<double*>(kv.get_record(i)))[j], 3.14*i*j);
+      EXPECT_FLOAT_EQ((reinterpret_cast<double*>(kv.get_record(i)))[j], 3.14*i*j);
       (reinterpret_cast<double*>(kv.get_record(i)))[j] = 3.14*i*j + 1;
     }
   }
   for(long i=10000000-1;i>=0;i--){
     for(int j=0;j<4;j++){
-      EXPECT_EQ((reinterpret_cast<double*>(kv.get_record(i)))[j], 3.14*i*j+1);
+      EXPECT_FLOAT_EQ((reinterpret_cast<double*>(kv.get_record(i)))[j], 3.14*i*j+1);
     }
   }
 }
@@ -48,11 +48,11 @@ TEST (VARLENKV_TEST, MANIPULATE_DOUBLE){
   }
   
   for(long i=0;i<10000000;i++){
-    EXPECT_EQ((*reinterpret_cast<double*>(kv.get_record(i))), 3.14*i);
+    EXPECT_FLOAT_EQ((*reinterpret_cast<double*>(kv.get_record(i))), 3.14*i);
   }
   
   for(long i=10000000-1;i>=0;i--){
-    EXPECT_EQ((*reinterpret_cast<double*>(kv.get_record(i))), 3.14*i);
+    EXPECT_FLOAT_EQ((*reinterpret_cast<double*>(kv.get_record(i))), 3.14*i);
   }
   
 }
