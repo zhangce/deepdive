@@ -27,6 +27,7 @@ TEST (FACTORGRAPH_TEST, LR_LEARNING){
   jobconfig.workdir = "/tmp";
   jobconfig.buffer_size_in_byte = 40*1024L*1024;	//40MB
   jobconfig.frame_size_in_byte = 4096*1024;	//4MB
+  
   jobconfig.nepoch = 50;
   
   jobconfig.samplemode = SAMPLEMODE_ALLSAMPLE;

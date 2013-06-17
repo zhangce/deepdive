@@ -3,6 +3,8 @@
 
 #include "test.h"
 
+#include "fg/test_factorgraph.h"
+
 #include "io/test_frame.h"
 #include "fg/test_variablescanner.h"
 
@@ -15,7 +17,6 @@
 #include "fg/test_factoraccessor.h"
 #include "io/test_scanner.h"
 #include "fg/test_modelaccessor.h"
-#include "fg/test_factorgraph.h"
 
 #ifdef WITHTHRIFT
 #include "io/test_driver_hbase.h"
