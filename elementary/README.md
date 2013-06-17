@@ -51,6 +51,8 @@ The simplest way to test your installation is to run unit tests by typing in
 The whole test might take about 10 minutes to finish. All test case should be passed. We expect 
 outputs like
 
+    ... ...
+    
     [----------] 1 test from SCANNER_TEST
     [ RUN      ] SCANNER_TEST.SCAN_DOUBLE
       | Scaning 4 pages...[ETA=0.035021]...[TIME=0.0473778]...SIGSUM=[1.57e+12]
