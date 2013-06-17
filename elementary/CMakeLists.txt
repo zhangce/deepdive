@@ -13,6 +13,20 @@ add_subdirectory(lib/gtest-1.6.0)
 enable_testing(true)
 include_directories(src test lib/gtest-1.6.0/include lib/gtest-1.6.0)
 
+add_custom_command(
+  OUTPUT /tmp/deepdive
+  COMMAND mkdir -p /tmp/deepdive;
+)
+
+add_custom_command(
+  OUTPUT /tmp/deepdive/variables.tsv
+  COMMAND python ${CMAKE_SOURCE_DIR}/test/prepare/prepare.py -a lda -e ${CMAKE_SOURCE_DIR}/../testdata/lda/
+)
+
+ADD_CUSTOM_TARGET(PrepareTest ALL echo
+  DEPENDS /tmp/deepdive /tmp/deepdive/variables.tsv
+)
+
 if(NOT WITHTHRIFT)
 
   ####TEST####
@@ -61,6 +75,7 @@ else()
   add_executable(ele src/main.cpp)
   target_link_libraries(ele ${CMAKE_THREAD_LIBS_INIT})
   target_link_libraries(ele -lrt)
+
 endif()
 
 
