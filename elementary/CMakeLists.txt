@@ -6,7 +6,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 #set(CMAKE_BUILD_TYPE Release)
 # We cannot use -O3 becaues of -ftree-vectorize --- #TODO: CHECKING REASONS
-set(CMAKE_CXX_FLAGS "-O2 -DHAVE_NETDB_H=1  -std=c++0x -ffast-math -finline-functions -funswitch-loops -fpredictive-commoning -fgcse-after-reload -ftree-partial-pre -fipa-cp-clone -fvect-cost-model")
+# We do not use -ftree-partial-pre
+set(CMAKE_CXX_FLAGS "-O2 -DHAVE_NETDB_H=1  -std=c++0x -ffast-math -finline-functions -funswitch-loops -fpredictive-commoning -fgcse-after-reload -fipa-cp-clone -fvect-cost-model")
 
 ######GTEST######
 add_subdirectory(lib/gtest-1.6.0)
