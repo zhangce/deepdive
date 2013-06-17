@@ -74,7 +74,7 @@ double process_variable_sample(char * wr_copy, char * rd_copy, void * ppara, dou
 
     if(pvar->dtype == 'C' && (pvar->upper <= 999 && pvar->lower >= 0)){
       // for discrete variables with small range, just enumerate all possibilities
-      changed = DiscreteGibbsSampler<DRIVER, PAGER>::sample(factors, pvar, pvar_ori, p_double1000buffer, true);
+      changed = DiscreteGibbsSampler<DRIVER, PAGER>::sample(factors, pvar, pvar_ori, p_double1000buffer, ModelAccessor::is_log_system);
     }else if(pvar->dtype == 'C' || pvar->dtype == 'R'){
       // for discrete variables with large range, or continuous variables, the 
       // last thing we could do is MH with uniform proposal
@@ -172,6 +172,17 @@ void FactorGraph<DRIVER, PAGER>::sample()
     fclose (pFile);
     std::cout << std::endl;
   }
+  
+  // finally, we dump the model
+  std::string dump_filename = jobconfig.workdir + "/infrs_models.tsv";
+  std::cout << "  | Dumping models to " << dump_filename << "...";
+  FILE * pFile = fopen (dump_filename.c_str(),"w");
+  
+  for(int i=1;i<ModelAccessor::model.size();i++){
+    fprintf(pFile, "%d\t%f\n", i, ModelAccessor::model[i]);
+  }
+  fclose (pFile);
+  std::cout << std::endl;
 }
 
 template<class DRIVER, class PAGER>
@@ -196,8 +207,10 @@ FactorGraph<DRIVER, PAGER>::FactorGraph(JobConfig _jobconfig):
   std::cout << "    # [TIME=" << t3.elapsed() << "]" << std::endl;
   
   ModelAccessor::sgd_step_size = jobconfig.sgd_step_size;
+  ModelAccessor::is_log_system = jobconfig.is_log_system;
   std::cout << "  | Setting parameters..." << std::endl;
   std::cout << "    # sgd_step_size = " << ModelAccessor::sgd_step_size << std::endl;
+  std::cout << "    # is_log_system = " << ModelAccessor::is_log_system << std::endl;
   
   std::cout << std::endl;
 }

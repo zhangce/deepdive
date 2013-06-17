@@ -45,6 +45,8 @@ public:
   
   double sgd_step_size;
   
+  bool is_log_system;
+  
   SampleMode samplemode;
   
   JobConfig(){}
@@ -61,6 +63,7 @@ public:
     this->samplemode = other.samplemode;
     this->burnin = other.burnin;
     this->sgd_step_size = other.sgd_step_size;
+    this->is_log_system = other.is_log_system;
   }
   
   

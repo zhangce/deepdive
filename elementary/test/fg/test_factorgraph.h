@@ -33,6 +33,8 @@ TEST (FACTORGRAPH_TEST, LR_LEARNING){
   jobconfig.burnin = 2;
   jobconfig.sgd_step_size = 0.01;
   
+  jobconfig.is_log_system = true;
+  
   FactorGraph<Driver_FILE, int> fg(jobconfig);
   
   fg.init();
@@ -75,6 +77,8 @@ TEST (FACTORGRAPH_TEST, LR_LEARNING_AND_INF){
   jobconfig.samplemode = SAMPLEMODE_LASTSAMPLE;
   jobconfig.burnin = 25;
   jobconfig.sgd_step_size = 0.01;
+  
+  jobconfig.is_log_system = true;
   
   FactorGraph<Driver_FILE, int> fg(jobconfig);
   
@@ -120,6 +124,9 @@ TEST (FACTORGRAPH_TEST, LOAD){
   
   jobconfig.samplemode = SAMPLEMODE_ALLSAMPLE;
   jobconfig.burnin = 2;
+  jobconfig.sgd_step_size = 0.01;
+  
+  jobconfig.is_log_system = false;
   
   FactorGraph<Driver_FILE, int> fg(jobconfig);
   

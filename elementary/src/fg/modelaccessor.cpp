@@ -24,6 +24,8 @@ double ModelAccessor::sgd_step_size;
 
 bool ModelAccessor::start_tally;
 
+bool ModelAccessor::is_log_system;
+
 double ModelAccessor::load(std::string _filename_model)
 {
   std::ifstream fin(_filename_model.c_str());

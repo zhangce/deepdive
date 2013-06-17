@@ -33,6 +33,8 @@ public:
   
   static bool start_tally;
   
+  static bool is_log_system;
+  
   ModelAccessor(){}
   
 };
