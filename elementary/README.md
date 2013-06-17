@@ -4,11 +4,12 @@
 
 ### Installation
 
-Usually, Elementary is installed with [DeepDIVE](http://github.com/zhangce/deepdive),
+Usually, Elementary should be installed with [DeepDive](http://github.com/zhangce/deepdive),
 which provides high-level interface (e.g., MLN, WinBUGS, Python, and SQL). However, Elementary
 is able to be installed independently. When installed along, Elementary takes as input a
 TSV-based low-level representation, and outputs inference and learning results also in a 
-TSV-based format.
+TSV-based format. Installing Elementary along might be useful when you want to integrate
+Elementary deeply into your projects.
 
 ##### Requirements
 
