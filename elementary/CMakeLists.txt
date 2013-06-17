@@ -21,6 +21,7 @@ add_custom_command(
 add_custom_command(
   OUTPUT /tmp/deepdive/variables.tsv
   COMMAND python ${CMAKE_SOURCE_DIR}/test/prepare/prepare.py -a lda -e ${CMAKE_SOURCE_DIR}/../testdata/lda/
+  DEPENDS /tmp/deepdive /tmp/deepdive
 )
 
 ADD_CUSTOM_TARGET(PrepareTest ALL echo
