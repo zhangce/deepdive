@@ -31,7 +31,7 @@ TEST (DRIVER_FILE_TEST, ADD_FRAME){
   for(int i=0;i<100;i++){
     driver.get_frame(i,f);
     for(int j=0;j<100;j++){
-      EXPECT_EQ(*reinterpret_cast<double*>(f.get_i_record_content(j)), 3.14*i*j);
+      EXPECT_FLOAT_EQ(*reinterpret_cast<double*>(f.get_i_record_content(j)), 3.14*i*j);
     }
   }
   

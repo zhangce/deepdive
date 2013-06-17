@@ -32,7 +32,7 @@ TEST (BUFFER_TEST, MANIPULATE_FRAME){
     for(int i=0;i<100;i++){
       BufferPageHeader * ph = pagebuffer.get_bufferpage_and_lock(i);
       for(int j=0;j<ph->frame.get_n_records();j++){
-	EXPECT_EQ(*reinterpret_cast<double*>(ph->frame.get_i_record_content(j)), 3.14*i*j);
+	EXPECT_FLOAT_EQ(*reinterpret_cast<double*>(ph->frame.get_i_record_content(j)), 3.14*i*j);
       }    
       pagebuffer.release_lock(i);
     }
