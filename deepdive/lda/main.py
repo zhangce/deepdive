@@ -93,8 +93,8 @@ class LDA:
         print(("|LDA| CREATING MODELS TO %s ..." % modelfile))
         fo = open(modelfile, 'w')
 
-        fo.write('1\t1\n')
-        fo.write('2\t0.001\n')
-        fo.write('3\t0.001')
+        fo.write('1\t1\t1\n')
+        fo.write('2\t0.001\t1\n')
+        fo.write('3\t0.001\t1')
         fo.close()
 

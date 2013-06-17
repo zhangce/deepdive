@@ -3,19 +3,21 @@
 #include "fg/variable.h"
 #include "fg/variablescanner.h"
 
-double print_variable(char * buf, char * dummy, void * ppara){
+double print_variable(char * buf, char * dummy, void * ppara, double * dummy2){
   Variable * pvar = reinterpret_cast<Variable*>(buf);
   bool a = pvar->vid >= 0 && pvar->vid <= 429451;
   EXPECT_EQ(a, true);
-  EXPECT_EQ(pvar->type, 'C');
-  EXPECT_EQ(pvar->lower, 1);
-  EXPECT_EQ(pvar->upper, 50);
+  EXPECT_EQ(pvar->dtype, 'C');
+  EXPECT_EQ(pvar->lower, 0);
+  EXPECT_EQ(pvar->upper, 49);
   EXPECT_EQ(pvar->nfactor, 3);
-  a = *pvar->get_i_value(0) >= 1 && *pvar->get_i_value(0) <= 50;
+  a = pvar->cvalue >= 0 && pvar->cvalue <= 49;
+  
+  *pvar->get_i_value(0) = pvar->cvalue;
   EXPECT_EQ(a, true);
 }
 
-double update_variable(char * buf, char * dummy, void * ppara){
+double update_variable(char * buf, char * dummy, void * ppara, double * dummy2){
   Variable * pvar = reinterpret_cast<Variable*>(buf);
   for(int i=0;i<3;i++){
     *pvar->get_i_fid(i) = (long) i*4+0;
@@ -27,13 +29,13 @@ double update_variable(char * buf, char * dummy, void * ppara){
   *pvar->get_i_value(0) = 12.5;
 }
 
-double print_variable2(char * buf, char * dummy, void * ppara){
+double print_variable2(char * buf, char * dummy, void * ppara, double * dummy2){
   Variable * pvar = reinterpret_cast<Variable*>(buf);
   bool a = pvar->vid >= 0 && pvar->vid <= 429451;
   EXPECT_EQ(a, true);
-  EXPECT_EQ(pvar->type, 'C');
-  EXPECT_EQ(pvar->lower, 1);
-  EXPECT_EQ(pvar->upper, 50);
+  EXPECT_EQ(pvar->dtype, 'C');
+  EXPECT_EQ(pvar->lower, 0);
+  EXPECT_EQ(pvar->upper, 49);
   EXPECT_EQ(pvar->nfactor, 3);
   for(int i=0;i<3;i++){
     EXPECT_EQ(*pvar->get_i_fid(i) ,i*4+0);

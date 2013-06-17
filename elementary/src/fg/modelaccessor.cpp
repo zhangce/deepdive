@@ -18,19 +18,27 @@
 #include "modelaccessor.h"
 
 std::vector<double> ModelAccessor::model;
+std::vector<bool> ModelAccessor::model_isfixed;
+
+double ModelAccessor::sgd_step_size;
+
+bool ModelAccessor::start_tally;
 
 double ModelAccessor::load(std::string _filename_model)
 {
   std::ifstream fin(_filename_model.c_str());
   int pid;
   double number;
+  bool fixed;
   int nline = 0;
   
-  while(fin >> pid >> number){
+  while(fin >> pid >> number >> fixed){
     while(pid >= ModelAccessor::model.size()){
       ModelAccessor::model.push_back(0.0);
+      ModelAccessor::model_isfixed.push_back(true);
     }
     ModelAccessor::model[pid] = number;
+    ModelAccessor::model_isfixed[pid] = fixed;
     nline++;
   }
   

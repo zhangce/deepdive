@@ -20,7 +20,7 @@
   /**
    * Format of variables file:
    * 
-   *    VID(long) #DTYPE(char, C, R, M) #VTYPE(char E, Q) #STYPE(char S, G) LOWERBOUND(double) UPPERBOUND(double) NFACTOR(long) [FID(long), GROUP(int), POS(int), AUX(int)...] [INITVALUES(double)...]
+   *    VID(long) #DTYPE(char, C, R, M) #VTYPE(char E, Q) #STYPE(char S, G) LOWERBOUND(double) UPPERBOUND(double) NFACTOR(long) [FID(long), GROUP(int), POS(int), AUX(int)... [If stype==G, then the first factor is always the VG function]] [INITVALUES(double)...]
    * 
    */
 template<class DRIVER>

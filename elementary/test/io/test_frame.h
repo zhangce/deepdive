@@ -3,7 +3,6 @@
 
 #include "io/frame.h"
 
-
 TEST (FRAME_TEST, VAR_SIZE_RECORDS){
   
   int framesizes[3] = {4096,	//4K
@@ -13,7 +12,7 @@ TEST (FRAME_TEST, VAR_SIZE_RECORDS){
   
   for(int w=0;w<3;w++){
     int framesize = framesizes[w];
-    //ustd::cout << framesizes[w] << std::endl;
+    //std::cout << framesizes[w] << std::endl;
     Frame f(framesize);
     EXPECT_EQ(f.get_n_records(), 0);
     EXPECT_EQ(f.get_c_meta_cursor_pos(), framesize - 4);
@@ -22,6 +21,7 @@ TEST (FRAME_TEST, VAR_SIZE_RECORDS){
     int sum = 0;
     int last = 0;
     int i;
+    int j;
     for(i=0;i<1024*1024*1024;i++){
       int size = (i+1)*sizeof(double);
       int rs = f.push_new_record(size);
@@ -30,7 +30,6 @@ TEST (FRAME_TEST, VAR_SIZE_RECORDS){
 	break;
       }
       sum += size;
-      
     }
     //std::cout << "~~~" << i << std::endl;
     EXPECT_EQ(f.get_n_records(), i);
@@ -40,7 +39,8 @@ TEST (FRAME_TEST, VAR_SIZE_RECORDS){
       int ndouble = i+1;
       EXPECT_EQ(f.get_i_record_size(i), ndouble * sizeof(double));
       double * pd = reinterpret_cast<double*>(f.get_i_record_content(i));
-      for(int j=0;j<ndouble;j++){
+      for(j=0;j<ndouble; j++){
+	//assert(j<100000);	//I do not know why, but after adding this line, we can use -O3
 	pd[j] = (double)(3.14*i*j);
       }
     }
@@ -53,7 +53,6 @@ TEST (FRAME_TEST, VAR_SIZE_RECORDS){
 	EXPECT_EQ(pd[j], 3.14*i*j);
       }
     }
-
   } 
 }
 
@@ -62,9 +61,6 @@ TEST (FRAME_TEST, DECONSTRUCTOR){
   Frame * pf = new Frame(4194304*100);
   ASSERT_NO_FATAL_FAILURE(delete pf);
 }
-
-
-
 
 TEST (FRAME_TEST, SAME_SIZE_RECORDS){
   
@@ -98,5 +94,7 @@ TEST (FRAME_TEST, SAME_SIZE_RECORDS){
     }
   } 
 }
+
+
 
 

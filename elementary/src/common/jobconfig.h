@@ -20,6 +20,8 @@
 
 #include <common/include.h>
 
+enum SampleMode {SAMPLEMODE_ALLSAMPLE, SAMPLEMODE_LASTSAMPLE};
+
 class JobConfig
 {
   
@@ -39,6 +41,12 @@ public:
   
   int nepoch;
   
+  int burnin;
+  
+  double sgd_step_size;
+  
+  SampleMode samplemode;
+  
   JobConfig(){}
   
   JobConfig( const JobConfig& other )
@@ -50,6 +58,9 @@ public:
     this->frame_size_in_byte = other.frame_size_in_byte;
     this->buffer_size_in_byte = other.buffer_size_in_byte;
     this->nepoch = other.nepoch;
+    this->samplemode = other.samplemode;
+    this->burnin = other.burnin;
+    this->sgd_step_size = other.sgd_step_size;
   }
   
   

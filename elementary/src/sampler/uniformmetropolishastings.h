@@ -15,26 +15,17 @@
 */
 
 
-#ifndef MODELACCESSOR_H
-#define MODELACCESSOR_H
+#ifndef UNIFORMMETROPOLISHASTINGS_H
+#define UNIFORMMETROPOLISHASTINGS_H
 
-#include <common/include.h>
-
-class ModelAccessor
+class UniformMetropolisHastings
 {
 public:
-  static std::vector<double> model;
-
-  static std::vector<bool> model_isfixed;
   
-  static double load(std::string _filename_model);
-  
-  static double sgd_step_size;
-  
-  static bool start_tally;
-  
-  ModelAccessor(){}
+    static int sample(FactorAccessor<DRIVER, PAGER> * factors, Variable * pvar,  Variable * const pvar_ori, double* p_double1000buffer){
+    
+  }
   
 };
 
-#endif // MODELACCESSOR_H
+#endif // UNIFORMMETROPOLISHASTINGS_H

@@ -31,7 +31,7 @@ void Driver_FILE::add_frame(const int frameid)
     objmask[frameid] = true;
   }
     
-  ret = pwrite64(fd, empty_frame.content, this->framesize_in_byte, frameid*this->framesize_in_byte);
+  ret = pwrite64(fd, empty_frame.content, this->framesize_in_byte, 1L*frameid*this->framesize_in_byte);
   if(ret < 0){
     assert(false && "Driver_FILE: fail to write in init()");
   }
@@ -45,7 +45,7 @@ void Driver_FILE::set_frame(const int frameid, const Frame& frame)
     
   if(objmask.find(frameid) != objmask.end()){
     // if in hash
-    ret = pwrite64(fd, frame.content, this->framesize_in_byte, frameid*this->framesize_in_byte);
+    ret = pwrite64(fd, frame.content, this->framesize_in_byte, 1L*frameid*this->framesize_in_byte);
     if(ret < 0){
       assert(false && "Driver_FILE: fail to write in set()");
     }
@@ -62,7 +62,7 @@ void Driver_FILE::get_frame(const int frameid, Frame& frame)
     
   if(objmask.find(frameid) != objmask.end()){
     // if in hash
-    ret = pread64(fd, frame.content, this->framesize_in_byte, frameid*this->framesize_in_byte);
+    ret = pread64(fd, frame.content, this->framesize_in_byte, 1L*frameid*this->framesize_in_byte);
     if(ret < 0){
       assert(false && "Driver_FILE: fail to read in get()");
     }

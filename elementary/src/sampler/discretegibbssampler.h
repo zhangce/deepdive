@@ -25,12 +25,16 @@ class DiscreteGibbsSampler
 {
 public:
   
-  static int sample(FactorAccessor<DRIVER, PAGER> * factors, Variable * pvar,  Variable * const pvar_ori, double* p_double1000buffer){
+  static int sample(FactorAccessor<DRIVER, PAGER> * factors, Variable * pvar,  Variable * const pvar_ori, double* p_double1000buffer, bool is_log_scale){
     
     long fid;
     
     for(int newvalue=pvar->lower;newvalue<=pvar->upper;newvalue++){
-      p_double1000buffer[newvalue] = 1.0;
+      if(!is_log_scale){
+	p_double1000buffer[newvalue] = 1.0;
+      }else{
+	p_double1000buffer[newvalue] = 0.0;
+      }
     }
     
     for(long i_factor=0;i_factor<pvar->nfactor;i_factor++){
@@ -45,24 +49,47 @@ public:
 	
 	double potential = FactorFactory::potential_factor(fstate, i_factor, pvar, pvar_ori);
 	
-	p_double1000buffer[newvalue] *= potential;
+	if(!is_log_scale){
+	  p_double1000buffer[newvalue] *= potential;
+	}else{
+	  p_double1000buffer[newvalue] += potential;
+	}
       }
       
       factors->release_record(fid);
     }
     
     double sum = 0;
+    if(!is_log_scale){
+      sum = 0;
+    }else{
+      sum = -1000000;
+    }
+    
     for(int newvalue=pvar->lower;newvalue<=pvar->upper;newvalue++){
-      sum += p_double1000buffer[newvalue];
+      if(!is_log_scale){
+	sum += p_double1000buffer[newvalue];
+      }else{
+	sum = logadd(sum, p_double1000buffer[newvalue]);
+      }
     }
     
     double r = drand48();
     double accum = 0;
+    if(!is_log_scale){
+      accum = 0;
+    }else{
+      accum = -1000000;
+    }
+    
     double ratio = 0;
     int topick = -1;
     for(int newvalue=pvar->lower;newvalue<=pvar->upper;newvalue++){
-      accum += p_double1000buffer[newvalue];
-      ratio = accum / sum;
+      if(!is_log_scale){
+	ratio += p_double1000buffer[newvalue] / sum;
+      }else{
+	ratio += exp(p_double1000buffer[newvalue] - sum);
+      }
       if(r <= ratio){
 	topick = newvalue;
 	break;

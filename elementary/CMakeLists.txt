@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 2.6)
 project(elementary)
 
 #set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_CXX_FLAGS "-O2")
+# We cannot use -O3 becaues of -ftree-vectorize --- #TODO: CHECKING REASONS
+set(CMAKE_CXX_FLAGS "-O2 -ffast-math -finline-functions -funswitch-loops -fpredictive-commoning -fgcse-after-reload -ftree-partial-pre -fipa-cp-clone -fvect-cost-model")
 
 ######GTEST######
 add_subdirectory(lib/gtest-1.6.0)

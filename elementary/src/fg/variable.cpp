@@ -32,7 +32,6 @@ int* Variable::get_i_f_pos(const long &  i)
   return reinterpret_cast<int*>(&this->content[i*(sizeof(long)+3*sizeof(int)) + sizeof(long) + sizeof(int)]);
 }
 
-
 int* Variable::get_i_f_aux(const long &  i)
 {
   return reinterpret_cast<int*>(&this->content[i*(sizeof(long)+3*sizeof(int)) + sizeof(long) + 2*sizeof(int)]);
@@ -40,6 +39,7 @@ int* Variable::get_i_f_aux(const long &  i)
 
 double* Variable::get_i_value(const long &  i)
 {
+  //assert(false);
   return reinterpret_cast<double*>(&this->content[nfactor*(sizeof(long)+3*sizeof(int)) + i*sizeof(double)]);
 }
 

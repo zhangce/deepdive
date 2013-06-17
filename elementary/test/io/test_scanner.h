@@ -3,7 +3,7 @@
 #include "io/driver_file.h"
 #include "io/scanner.h"
 
-double adddouble(char * buf, char * dummy, void * ppara){
+double adddouble(char * buf, char * dummy, void * ppara, double * dummy2){
   return *reinterpret_cast<double*>(buf);
 }
 

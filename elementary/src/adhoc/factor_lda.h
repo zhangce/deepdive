@@ -70,7 +70,14 @@ public:
   
      pstate->counts[propose->cvalue] ++;    
      pstate->counts[original->cvalue] --;
-     
+  }
+  
+  static bool variable_generate(char * state, long i_factor, Variable * propose, Variable * original){
+    return false;
+  }
+  
+  static void update_model(char * state, long i_factor, Variable * propose, Variable * original){
+    return;
   }
   
 };

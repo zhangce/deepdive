@@ -26,6 +26,9 @@ public:
   
   long vid;
   
+  double sample_sum;
+  int nsample;
+  
   char dtype;
   char vtype;
   char stype;
@@ -54,7 +57,8 @@ public:
       assert(false);
       //return sizeof(Variable) + nfactor * (sizeof(long) + 3*sizeof(int)) + sizeof(double)*lower*upper;
     }else{
-      return sizeof(Variable) + nfactor * (sizeof(long) + 3*sizeof(int)) + sizeof(double);
+      //return sizeof(Variable) + nfactor * (sizeof(long) + 3*sizeof(int)) + sizeof(double);
+      return sizeof(Variable) + nfactor * (sizeof(long) + 3*sizeof(int));
     }
   }
   
