@@ -1,0 +1,39 @@
+
+[PY|ProcessConllRawTrain]
+TYPE      =  PYTHON
+INPUT     =  SELECT line FROM RawConllTrain limit 10000
+IMPACTREL =  Words
+FUNC      =  exts.conll.parseConllTrain
+
+[PY|ProcessConllRawTest]
+TYPE      =  PYTHON
+INPUT     =  SELECT line FROM RawConllTest 
+IMPACTREL =  Words GroundTruth 
+FUNC      =  exts.conll.parseConllTest
+
+[PY|ExtUnigramFeature]
+TYPE      =  PYTHON
+INPUT     =  SELECT wordid, word, pos FROM Words
+IMPACTREL =  Words
+FUNC      =  exts.conll.unigram
+
+[PY|ExtBigramFeature]
+TYPE      =  PYTHON
+INPUT     =  SELECT t0.id, t0.wordid, t1.id, t1.wordid		\
+             FROM Words t0, Words t1					\
+             WHERE t0.wordid+1=t1.wordid AND t0.sentid=t1.sentid
+IMPACTREL =  Words
+FUNC      =  exts.conll.bigram
+
+[PY|PRECISION]
+TYPE      =  PYTHON
+INPUT     =  SELECT t0.varvalue_, t1.answer 			    \
+	     FROM Words t0, GroundTruth t1			    \
+	     WHERE t0.wordid = t1.wordid
+IMPACTREL =
+FUNC      =  exts.conll.precision
+
+
+
+
+
