@@ -71,6 +71,7 @@ public:
       }else if(pvar->dtype == 'R'){
 	pvar->rvalue = drand48()*(pvar->upper - pvar->lower) + pvar->lower;
 	
+	std::cout << pvar->rvalue << std::endl;
       }else if(pvar->dtype == 'M'){
 	assert(false);
       }else{

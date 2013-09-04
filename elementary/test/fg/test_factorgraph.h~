@@ -52,7 +52,7 @@ TEST (FACTORGRAPH_TEST, LR_AVG){
     
   }
   
-  //EXPECT_EQ((expect <= 9000 && expect >= 8000), true);
+  EXPECT_EQ((expect <= 9000 && expect >= 8000), true);
   
   fin.close();
   

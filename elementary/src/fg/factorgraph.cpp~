@@ -78,7 +78,7 @@ double process_variable_sample(char * wr_copy, char * rd_copy, void * ppara, dou
     }else if(pvar->dtype == 'C' || pvar->dtype == 'R'){
       // for discrete variables with large range, or continuous variables, the 
       // last thing we could do is MH with uniform proposal
-      changed = UniformMetropolisHastings<DRIVER, PAGER>::sample(factors, pvar, pvar_ori, p_double1000buffer, ModelAccessor::is_log_system);
+      changed = Un
     }else if(pvar->dtype == 'M'){
       // for now, we do not support matrix
       assert(false);

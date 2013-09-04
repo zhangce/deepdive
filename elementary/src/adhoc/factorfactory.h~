@@ -114,7 +114,6 @@ public:
     if(ffid == 0) return Factor_LDA::variable_generate(state, i_factor, propose, original);
     if(ffid == 1) return Factor_BooleanDisjunction::variable_generate(state, i_factor, propose, original);
     if(ffid == 2) return Factor_Sum::variable_generate(state, i_factor, propose, original);
-    if(ffid == 3) return Factor_Avg::variable_generate(state, i_factor, propose, original);
 	
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
