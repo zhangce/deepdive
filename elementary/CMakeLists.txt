@@ -41,7 +41,7 @@ if(NOT WITHTHRIFT)
 
   ######MAIN ENTRY######
   find_package (Threads)
-  add_executable(ele src/main.cpp)
+  add_executable(ele src/main.cpp src/fg/modelaccessor.cpp src/fg/variable.cpp src/fg/factoraccessor.cpp src/io/varlenkv.cpp src/io/fixlenkv.cpp src/fg/variablescanner.cpp src/fg/factorgraph.cpp src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp)
   target_link_libraries(ele ${CMAKE_THREAD_LIBS_INIT})
   target_link_libraries(ele -lrt)
 
