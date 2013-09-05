@@ -22,7 +22,7 @@ public class SQLCommandOptions {
     public int page_size_in_bytes = 4*1024*1024;
     
     @Option(name="-db", usage="Host of DB.")
-    public String db = "jdbc:postgresql://localhost:5432/postgres";
+    public String db = "jdbc:postgresql://localhost:5432/testdb";
 
     @Option(name="-db_user", usage="User of DB.")
     public String db_user = "postgres";
@@ -31,7 +31,7 @@ public class SQLCommandOptions {
     public String db_password = "password";
     
     @Option(name="-db_schema", usage="Schema of DB.")
-    public String db_schema = "deepdive_working_schema_lda";
+    public String db_schema = "public";
     
     @Option(name="-select", usage="SQL to execute.")
     public String sql_select = "";

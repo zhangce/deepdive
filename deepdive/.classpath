@@ -24,5 +24,15 @@
 	<classpathentry kind="lib" path="lib/webservices-extra-api.jar"/>
 	<classpathentry kind="lib" path="lib/webutil.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/antlr-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/args4j-2.0.12.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.0-beta-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.0-beta.jar"/>
+	<classpathentry kind="lib" path="lib/commons-math-2.2.jar"/>
+	<classpathentry kind="lib" path="lib/JavaEWAH-0.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/jgrapht-jdk1.6.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.9.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-8.4-701.jdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

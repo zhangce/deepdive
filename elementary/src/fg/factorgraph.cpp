@@ -66,6 +66,10 @@ double process_variable_sample(char * wr_copy, char * rd_copy, void * ppara, dou
   if(pvar->stype == 'G'){
     fid = *pvar->get_i_fid(0);
     is_generated = FactorFactory::variable_generate(factors->get_record(fid), 0, pvar, pvar_ori);
+    if(!is_generated){
+      std::cout << "vid=" << pvar->vid << "   first_f=" << fid << std::endl;
+      
+    }
     assert(is_generated==true && "FactorGraph: The first factor should be VG function is stype=G");
   }
   

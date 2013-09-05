@@ -23,8 +23,8 @@ int main(int argc, char **argv){
   jobconfig.filename_models = (filepath + "/models.tsv").c_str();
   jobconfig.workdir = filepath.c_str();
   
-  jobconfig.buffer_size_in_byte = 40*1024L*1024;	//40MB
-  jobconfig.frame_size_in_byte = 4096*1024;	//4MB
+  jobconfig.buffer_size_in_byte = 1L*1024L*1024L*1024;	//1GB
+  jobconfig.frame_size_in_byte = 4096L*1024;	//4MB
   jobconfig.nepoch = niter;
   
   jobconfig.samplemode = SAMPLEMODE_LASTSAMPLE;
