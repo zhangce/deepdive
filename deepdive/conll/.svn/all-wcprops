@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/hazygroup/!svn/ver/209/trunk/jeo/release/examples/py/conll
+END
+pipeline.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/hazygroup/!svn/ver/209/trunk/jeo/release/examples/py/conll/pipeline.cfg
+END
+datamodel.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/hazygroup/!svn/ver/209/trunk/jeo/release/examples/py/conll/datamodel.cfg
+END
+extractor.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/hazygroup/!svn/ver/209/trunk/jeo/release/examples/py/conll/extractor.cfg
+END

@@ -1,0 +1,85 @@
+
+import jeo
+
+GLOBAL_WORD_ID = 0
+GLOBAL_SENT_ID = 0
+
+def parseConll(line):
+    global GLOBAL_WORD_ID
+    global GLOBAL_SENT_ID
+    
+    if(len(line) == 0):
+        GLOBAL_SENT_ID = GLOBAL_SENT_ID + 1
+        return None
+    
+    GLOBAL_WORD_ID = GLOBAL_WORD_ID + 1
+    (word, pos, answer) = line.split(' ')
+
+    return (GLOBAL_WORD_ID, GLOBAL_SENT_ID, word, pos, answer)
+
+def parseConllTrain(inputtuples, (Words,)):
+    for (line, ) in inputtuples:
+        (wordid, sentid, word, pos, answer) = parseConll(line)
+        Words.insertTuple(wordid, sentid, word, pos)
+        Words.setEvid("wordid", wordid, answer)
+
+def parseConllTest(inputtuples, (Words,GroundTruth)):
+    for (line, ) in inputtuples:
+        (wordid, sentid, word, pos, answer) = parseConll(line)
+        Words.insertTuple(wordid, sentid, word, pos)
+        GroundTruth.insertTuple(wordid, answer)
+
+def unigram(inputtuples, (Words,)):
+    for (wordid, word, pos) in inputtuples:
+        
+        jeo.AddDenseTemplateFactor(
+            [Words.vars("wordid", wordid)],
+            lambda (a,): (1, "?Unigram-POS-" + pos + "LABEL-" + a)
+        )
+
+        jeo.AddDenseTemplateFactor(
+            [Words.vars("wordid", wordid)],
+            lambda (a,): (1, "?Unigram-WORD-" + word + "LABEL-" + a)
+        )
+
+        #jeo.AddDenseTemplateFactor(
+        #    [Words.vars("wordid", wordid)],
+        #    lambda (a,): (1, "?Unigram-WORD-" + word + "LABEL-" + "POS" + pos)
+        #)
+
+        #jeo.AddDenseTemplateFactor(
+        #    [Words.vars("wordid", wordid)],
+        #    lambda (a,): (1, "?Bias-" + a)
+        #)
+
+def bigram(inputtuples, (Words,)):
+    for (id1, word1, id2, word2) in inputtuples:
+        
+        jeo.AddDenseTemplateFactor(
+            [Words.vars("wordid", word1), Words.vars("wordid", word2)],
+            lambda (a,b,): (1, "?Bigram-"+a+"-"+b),
+            cachable="Bigram", usecache=True
+        )
+
+
+def precision(inputtuples, NORELS):
+    npred = 0
+    ncorrect = 0
+    for (ans, gt) in inputtuples:
+        npred = npred + 1
+        
+        if(ans == gt):
+            ncorrect = ncorrect + 1
+    
+    print "[JYTHON]  Precision =", 1.0*ncorrect/npred
+
+
+
+
+
+
+
+
+
+
+

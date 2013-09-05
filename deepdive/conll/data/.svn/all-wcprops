@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/hazygroup/!svn/ver/209/trunk/jeo/release/examples/py/conll/data
+END
+test
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/hazygroup/!svn/ver/209/trunk/jeo/release/examples/py/conll/data/test
+END
+train
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/hazygroup/!svn/ver/209/trunk/jeo/release/examples/py/conll/data/train
+END
