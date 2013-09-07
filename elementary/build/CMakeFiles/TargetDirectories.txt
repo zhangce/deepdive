@@ -1,0 +1,5 @@
+/home/czhang/Desktop/deepdive/elementary/build/CMakeFiles/PrepareTest.dir
+/home/czhang/Desktop/deepdive/elementary/build/CMakeFiles/ele.dir
+/home/czhang/Desktop/deepdive/elementary/build/CMakeFiles/ele_test.dir
+/home/czhang/Desktop/deepdive/elementary/build/lib/gtest-1.6.0/CMakeFiles/gtest.dir
+/home/czhang/Desktop/deepdive/elementary/build/lib/gtest-1.6.0/CMakeFiles/gtest_main.dir
