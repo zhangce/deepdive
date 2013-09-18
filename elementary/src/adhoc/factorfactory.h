@@ -26,6 +26,7 @@
 #include <adhoc/factor_sum.h>
 #include <adhoc/factor_avg.h>
 #include <adhoc/factor_join.h>
+#include <adhoc/factor_valueconjunction.h>
 
 class FactorFactory
 {
@@ -40,6 +41,8 @@ public:
     if(ffid == 2) return Factor_Sum::factor_size(sizeaux);
     if(ffid == 3) return Factor_Avg::factor_size(sizeaux);
     if(ffid == 4) return Factor_Join::factor_size(sizeaux);
+    
+    if(ffid == 10) return Factor_ValueConjunction::factor_size(sizeaux);
       
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
@@ -57,6 +60,8 @@ public:
     if(ffid == 3) return Factor_Avg::load_factor(state, sizeaux, aux);
     if(ffid == 4) return Factor_Join::load_factor(state, sizeaux, aux);
     
+    if(ffid == 10) return Factor_ValueConjunction::load_factor(state, sizeaux, aux);
+    
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
   
@@ -71,6 +76,8 @@ public:
     if(ffid == 3) return Factor_Avg::init_factor(state, i_factor, var);
     if(ffid == 4) return Factor_Join::init_factor(state, i_factor, var);
     
+    if(ffid == 10) return Factor_ValueConjunction::init_factor(state, i_factor, var);
+    
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
   
@@ -83,6 +90,8 @@ public:
     if(ffid == 2) return Factor_Sum::potential_factor(state, i_factor, propose, original);
     if(ffid == 3) return Factor_Avg::potential_factor(state, i_factor, propose, original);
     if(ffid == 4) return Factor_Join::potential_factor(state, i_factor, propose, original);
+    
+    if(ffid == 10) return Factor_ValueConjunction::potential_factor(state, i_factor, propose, original);
 	
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
@@ -96,6 +105,8 @@ public:
     if(ffid == 2) return Factor_Sum::update_factor(state, i_factor, propose, original);
     if(ffid == 3) return Factor_Avg::update_factor(state, i_factor, propose, original);
     if(ffid == 4) return Factor_Join::update_factor(state, i_factor, propose, original);
+    
+    if(ffid == 10) return Factor_ValueConjunction::update_factor(state, i_factor, propose, original);
 
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
@@ -109,6 +120,8 @@ public:
     if(ffid == 2) return Factor_Sum::update_model(state, i_factor, propose, original);
     if(ffid == 3) return Factor_Avg::update_model(state, i_factor, propose, original);
     if(ffid == 4) return Factor_Join::update_model(state, i_factor, propose, original);
+    
+    if(ffid == 10) return Factor_ValueConjunction::update_model(state, i_factor, propose, original);
 
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
@@ -122,6 +135,8 @@ public:
     if(ffid == 2) return Factor_Sum::variable_generate(state, i_factor, propose, original);
     if(ffid == 3) return Factor_Avg::variable_generate(state, i_factor, propose, original);
     if(ffid == 4) return Factor_Join::variable_generate(state, i_factor, propose, original);
+    
+    if(ffid == 10) return Factor_ValueConjunction::variable_generate(state, i_factor, propose, original);
 	
     assert(false && "FactorFactory: FactorID not in the catalog");
   }
