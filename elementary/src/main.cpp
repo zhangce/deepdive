@@ -27,7 +27,7 @@ int main(int argc, char **argv){
   jobconfig.frame_size_in_byte = 4096L*1024;	//4MB
   jobconfig.nepoch = niter;
   
-  jobconfig.samplemode = SAMPLEMODE_LASTSAMPLE;
+  jobconfig.samplemode = SAMPLEMODE_ALLSAMPLE;
   jobconfig.burnin = niter/10;
   jobconfig.sgd_step_size = 0.01;
   
