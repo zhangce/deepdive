@@ -19,6 +19,7 @@
 
 #include <io/driver.h>
 
+
 class Driver_FILE : public Driver
 {
 
@@ -30,8 +31,12 @@ private:
   
   int ret;
   
+#if defined(__MACH__)
+  pthread_mutex_t spinlock;
+#else
   pthread_spinlock_t spinlock;
-  
+#endif
+    
   std::map<int, bool> objmask;	/*< We assume that we have hash-table for each frame.*/
   
 public:
