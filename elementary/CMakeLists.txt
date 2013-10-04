@@ -34,16 +34,24 @@ if(NOT WITHTHRIFT)
   ####TEST####
   message(STATUS "Build without THRIFT SUPPORT")
 
-  add_executable(ele_test src/fg/modelaccessor.cpp src/fg/variable.cpp src/fg/factoraccessor.cpp src/io/varlenkv.cpp src/io/fixlenkv.cpp src/fg/variablescanner.cpp src/fg/factorgraph.cpp src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp test/test.cpp)
+  add_executable(ele_test src/fg/modelaccessor.cpp src/fg/variable.cpp src/fg/factoraccessor.cpp src/io/varlenkv.cpp src/io/fixlenkv.cpp src/fg/variablescanner.cpp src/fg/factorgraph.cpp src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp test/test.cpp src/common/timer.cpp)
   target_link_libraries(ele_test gtest gtest_main)
   add_test(test ele_test)
-  target_link_libraries(ele_test -lrt)
+
+  IF(APPLE)
+      #target_link_libraries(ele_test -lrt)
+  ELSE()
+      target_link_libraries(ele_test -lrt)
+  ENDIF()
 
   ######MAIN ENTRY######
   find_package (Threads)
-  add_executable(ele src/main.cpp src/fg/modelaccessor.cpp src/fg/variable.cpp src/fg/factoraccessor.cpp src/io/varlenkv.cpp src/io/fixlenkv.cpp src/fg/variablescanner.cpp src/fg/factorgraph.cpp src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp)
+  add_executable(ele src/main.cpp src/fg/modelaccessor.cpp src/fg/variable.cpp src/fg/factoraccessor.cpp src/io/varlenkv.cpp src/io/fixlenkv.cpp src/fg/variablescanner.cpp src/fg/factorgraph.cpp src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp src/common/timer.cpp)
   target_link_libraries(ele ${CMAKE_THREAD_LIBS_INIT})
+
+  IF(NOT APPLE)
   target_link_libraries(ele -lrt)
+  ENDIF()
 
 else()
 
@@ -66,9 +74,13 @@ else()
 
   ####TEST####
   include_directories("${Thrift_INCLUDE_DIR}")
-  add_executable(ele_test src/io/hbase/Hbase.cpp src/io/hbase/hbase_constants.cpp src/io/hbase/hbase_types.cpp src/io/driver_hbase.cpp src/fg/modelaccessor.cpp src/fg/variable.cpp src/fg/factoraccessor.cpp src/io/varlenkv.cpp src/io/fixlenkv.cpp src/fg/variablescanner.cpp src/fg/factorgraph.cpp src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp test/test.cpp)
+  add_executable(ele_test src/io/hbase/Hbase.cpp src/io/hbase/hbase_constants.cpp src/io/hbase/hbase_types.cpp src/io/driver_hbase.cpp src/fg/modelaccessor.cpp src/fg/variable.cpp src/fg/factoraccessor.cpp src/io/varlenkv.cpp src/io/fixlenkv.cpp src/fg/variablescanner.cpp src/fg/factorgraph.cpp src/io/buffer.cpp src/io/driver_file.cpp src/io/frame.cpp src/io/scanner.cpp test/test.cpp src/common/timer.cpp)
   add_test(test ele_test)
+  
+  IF(NOT APPLE)
   target_link_libraries(ele_test -lrt)
+  ENDIF()
+
   target_link_libraries(ele_test gtest gtest_main) 
   target_link_libraries (ele_test "-L${Thrift_LIB} -lthrift")
 
@@ -76,7 +88,10 @@ else()
   find_package (Threads)
   add_executable(ele src/main.cpp)
   target_link_libraries(ele ${CMAKE_THREAD_LIBS_INIT})
+
+  IF(NOT APPLE)
   target_link_libraries(ele -lrt)
+  ENDIF()
 
 endif()
 
